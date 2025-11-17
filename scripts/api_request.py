@@ -134,8 +134,6 @@ with open('private_api_key.txt','r') as file:
         break
 
 
-# response = requests.get('https://www.infoclimat.fr/opendata/?version=2&method=get&format=csv&stations[]=07015&stations[]=07020&start=2025-10-02&end=2025-10-04&token=private_api_key')
-
 
 # response = get_api_response('https://www.infoclimat.fr/opendata/',
 #                             'csv',
