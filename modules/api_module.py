@@ -138,7 +138,7 @@ def get_all_stations_data(base_url,
                                     token)
         
         if verbose:
-            print('response :', ok)
+            print('response :', response.status_code)
 
         data = get_data_from_response(response, format)
 
