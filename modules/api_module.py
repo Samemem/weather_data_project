@@ -6,6 +6,26 @@ import json
 from datetime import datetime
 import math
 
+
+def get_api_key(filepath, ip):
+    """
+    Parameters
+    ----------
+    filepath : str, path of the file containing private keys
+    ip : str, ip adress 
+
+    Returns
+    -------
+    str, api key
+    """
+
+    with open(filepath, 'r') as file:
+        data = json.load(file)
+    key = data[ip]
+
+    return key
+
+
 def get_api_response(base_url,
                      format, 
                      stations,
@@ -118,7 +138,7 @@ def get_all_stations_data(base_url,
                                     token)
         
         if verbose:
-            print('response :', response.text)
+            print('response :', ok)
 
         data = get_data_from_response(response, format)
 
