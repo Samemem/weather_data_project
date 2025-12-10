@@ -20,15 +20,15 @@ active_stations = get_active_stations(stations_json)
 ### API requests
 
 # WARNING : personal token, keep private
-token = get_api_key('data/private_api_key.txt', 'IP2')
+token = get_api_key('data/private_api_key.json', 'IP2')
 
 
 all_data = get_all_stations_data('https://www.infoclimat.fr/opendata/',
                                 'csv',
                                 active_stations,
-                                '2025-12-02',
-                                '2025-12-02',
+                                '2025-12-01',
+                                '2025-12-07',
                                 token,
-                                verbose = False)
+                                verbose = True)
 
-save_df_as_csv('data/today_data.csv',all_data)
+save_df_as_csv('data/weather_data_12_01-12_07.csv',all_data)

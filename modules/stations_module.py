@@ -1,6 +1,7 @@
 from datetime import datetime
 import requests
-
+import geopandas as gpd
+import ast
 
 def get_stations(url):
     """
@@ -30,3 +31,24 @@ def get_active_stations(stations_json):
     active_stations = [feature['properties']['id'] for feature in features \
                        if feature['properties']['last_activity'][0:10] == today_date]
     return active_stations
+
+
+def process_stations(stations_path, output_path):
+    """
+    Process stations dataframe to add latitude and longitude columns,
+    and extract data provider
+    
+    Parameters
+    ----------
+    stations_path : file path of stations
+    """
+    # Read file
+    stations = gpd.read_file(stations_path, driver = 'GeoJSON')
+    # Latitude and longitude columns
+    stations[['longitude','latitude']] = stations.geometry.get_coordinates()
+    stations.drop(columns=['geometry'], inplace = True)
+    # add source
+    stations['source'] = stations['license'].apply(
+        lambda x : ast.literal_eval(str(x))['source'])
+    # Save file
+    stations.to_csv(output_path, index=0)
